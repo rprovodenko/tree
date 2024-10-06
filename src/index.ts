@@ -28,8 +28,18 @@ async function start() {
             exit = true;
             continue;
         }
-        const output = applyCommandToTree(tree, command);
-        console.log(output);
+        try {
+            const output = applyCommandToTree(tree, command);
+            if (output) {
+                console.log(output);
+            }
+        } catch (e) {
+            if (e instanceof Error) {
+                console.error(e.message)
+            } else {
+                throw e;
+            }
+        }
     }
 }
 
