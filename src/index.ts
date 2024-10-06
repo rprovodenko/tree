@@ -3,20 +3,20 @@ import { CommandType } from "./parse-line/command";
 import { parseInputLine } from "./parse-line/parse-input-line";
 import { initializeTree } from "./tree/tree";
 
-
 async function readFromStdin(): Promise<string> {
     process.stdin.resume();
     return await new Promise((res, rej) => {
         let input = "";
-        process.stdin.on("data", data => {
+        const listener = (data: Buffer) => {
             input += data.toString();
             if (input.includes("\n")) {
                 process.stdin.pause();
+                process.stdin.removeListener("data", listener);
                 res(input.split("\n")[0])
             }
-        })
+        }
+        process.stdin.on("data", listener)
     })
-
 }
 
 async function start() {
@@ -24,6 +24,10 @@ async function start() {
     let exit = false;
     while (!exit) {
         const command = await pollStdIn();
+        // TODO create UNKNOWN_COMMAND instead
+        if (command === null) {
+            continue;
+        }
         if (command.type === CommandType.EXIT) {
             exit = true;
             continue;
@@ -45,7 +49,16 @@ async function start() {
 
 async function pollStdIn() {
     const inputLine = await readFromStdin();
-    return parseInputLine(inputLine);
+    try {
+        const command = parseInputLine(inputLine);
+        return command
+    } catch (e) {
+        if (e instanceof Error) {
+            console.error(e.message)
+            return null;
+        }
+        throw e;
+    }
 }
 
 start().catch(e => {
