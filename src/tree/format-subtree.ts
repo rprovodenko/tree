@@ -15,6 +15,4 @@ export function formatSubtree(node: Node) {
     }
 
     return output.length === 0 ? "\n" : output;
-
-    
 }

@@ -1,26 +1,17 @@
+import { getArgs } from "./cli-util/get-args";
+import { pollStdIn } from "./cli-util/poll-stdin";
 import { applyCommandToTree } from "./multiline-feed";
 import { CommandType } from "./parse-line/command";
-import { parseInputLine } from "./parse-line/parse-input-line";
+import { loadStateFrom } from "./state-persistance/load-state-from";
+import { saveStateTo } from "./state-persistance/save-state-to";
 import { initializeTree } from "./tree/tree";
 
-async function readFromStdin(): Promise<string> {
-    process.stdin.resume();
-    return await new Promise((res, rej) => {
-        let input = "";
-        const listener = (data: Buffer) => {
-            input += data.toString();
-            if (input.includes("\n")) {
-                process.stdin.pause();
-                process.stdin.removeListener("data", listener);
-                res(input.split("\n")[0])
-            }
-        }
-        process.stdin.on("data", listener)
-    })
-}
 
 async function start() {
-    const tree = initializeTree();
+    const args = getArgs();
+    const loadedState = args.loadStateFrom ? await loadStateFrom(args.loadStateFrom) : undefined
+
+    const tree = await initializeTree(loadedState);
     let exit = false;
     while (!exit) {
         const command = await pollStdIn();
@@ -45,21 +36,13 @@ async function start() {
             }
         }
     }
-}
-
-async function pollStdIn() {
-    const inputLine = await readFromStdin();
-    try {
-        const command = parseInputLine(inputLine);
-        return command
-    } catch (e) {
-        if (e instanceof Error) {
-            console.error(e.message)
-            return null;
-        }
-        throw e;
+    if (args.saveStateTo) {
+        const currentState = tree.serialize();
+        await saveStateTo(currentState, args.saveStateTo);
     }
 }
+
+
 
 start().catch(e => {
     console.error(e);
