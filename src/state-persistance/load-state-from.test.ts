@@ -1,10 +1,11 @@
-import {join} from "path";
-import { loadStateFrom } from "./load-state-from";
+import { join } from 'path';
+import { loadStateFrom } from './load-state-from';
 
-
-describe("loadStateFrom", () => {
-    it("reads file and returns state object", async () => {
-        const state = await loadStateFrom(join(__dirname, "./test-fixtures/test-state.json"))
+describe('loadStateFrom', () => {
+    it('reads file and returns state object', async () => {
+        const state = await loadStateFrom(
+            join(__dirname, './test-fixtures/test-state.json')
+        );
         expect(state).toMatchInlineSnapshot(`
 [
   {
@@ -13,5 +14,5 @@ describe("loadStateFrom", () => {
   },
 ]
 `);
-    })
-})
+    });
+});

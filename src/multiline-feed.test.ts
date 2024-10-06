@@ -1,26 +1,31 @@
-import { multilineFeed } from "./multiline-feed";
-import { initializeTree } from "./tree/tree"
+import { multilineFeed } from './multiline-feed';
+import { initializeTree } from './tree/tree';
 
-describe("Multiline integration", () => {
-    it("allows taking commands and feeding into tree - 1", () => {
+describe('Multiline integration', () => {
+    it('allows taking commands and feeding into tree - 1', () => {
         const tree = initializeTree();
-        multilineFeed(tree, `CREATE fruits
-CREATE vegetables`)
+        multilineFeed(
+            tree,
+            `CREATE fruits
+CREATE vegetables`
+        );
         expect(tree.list()).toMatchInlineSnapshot(`
 "fruits
 vegetables
 "
 `);
-    })
+    });
 
-
-    it("allows taking commands and feeding into tree - 2", () => {
+    it('allows taking commands and feeding into tree - 2', () => {
         const tree = initializeTree();
-        multilineFeed(tree, `CREATE fruits
+        multilineFeed(
+            tree,
+            `CREATE fruits
 CREATE vegetables
 CREATE grains
 CREATE fruits/apples
-CREATE fruits/apples/fuji`)
+CREATE fruits/apples/fuji`
+        );
         expect(tree.list()).toMatchInlineSnapshot(`
 "fruits
  apples
@@ -29,11 +34,13 @@ vegetables
 grains
 "
 `);
-    })
+    });
 
-    it("allows taking commands and feeding into tree - 3", () => {
+    it('allows taking commands and feeding into tree - 3', () => {
         const tree = initializeTree();
-        multilineFeed(tree, `CREATE fruits
+        multilineFeed(
+            tree,
+            `CREATE fruits
 CREATE vegetables
 CREATE grains
 CREATE fruits/apples
@@ -44,7 +51,8 @@ CREATE foods
 MOVE grains foods
 MOVE fruits foods
 MOVE vegetables foods
-LIST`)
+LIST`
+        );
         expect(tree.list()).toMatchInlineSnapshot(`
 "foods
  grains
@@ -55,11 +63,13 @@ LIST`)
   squash
 "
 `);
-    })
+    });
 
-    it("allows taking commands and feeding into tree - 4", () => {
+    it('allows taking commands and feeding into tree - 4', () => {
         const tree = initializeTree();
-        multilineFeed(tree, `CREATE fruits
+        multilineFeed(
+            tree,
+            `CREATE fruits
 CREATE vegetables
 CREATE grains
 CREATE fruits/apples
@@ -70,7 +80,8 @@ CREATE foods
 MOVE grains foods
 MOVE fruits foods
 MOVE vegetables foods
-DELETE foods/fruits/apples`)
+DELETE foods/fruits/apples`
+        );
         expect(tree.list()).toMatchInlineSnapshot(`
 "foods
  grains
@@ -79,5 +90,5 @@ DELETE foods/fruits/apples`)
   squash
 "
 `);
-    })
-})
+    });
+});

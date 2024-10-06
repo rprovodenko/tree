@@ -1,6 +1,6 @@
-import { TreeCommand, CommandType } from "./parse-line/command";
-import { parseInputLine } from "./parse-line/parse-input-line";
-import { Tree } from "./tree/tree";
+import { TreeCommand, CommandType } from './parse-line/command';
+import { parseInputLine } from './parse-line/parse-input-line';
+import { Tree } from './tree/tree';
 
 /**
  * TODO:
@@ -18,7 +18,7 @@ export function applyCommandToTree(tree: Tree, command: TreeCommand) {
         return;
     }
     if (command.type === CommandType.MOVE) {
-        tree.moveNode(command.source, command.target)
+        tree.moveNode(command.source, command.target);
         return;
     }
     if (command.type === CommandType.LIST) {
@@ -26,9 +26,8 @@ export function applyCommandToTree(tree: Tree, command: TreeCommand) {
     }
 }
 
-
 export function multilineFeed(tree: Tree, commands: string) {
-    const lines = commands.split("\n");
+    const lines = commands.split('\n');
     for (const line of lines) {
         const command = parseInputLine(line);
         if (command.type === CommandType.EXIT) {

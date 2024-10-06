@@ -1,1 +1,1 @@
-export type SerializedSubtree = Array<{name: string, path: string}>
+export type SerializedSubtree = Array<{ name: string; path: string }>;

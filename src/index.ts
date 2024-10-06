@@ -1,17 +1,21 @@
-import { getArgs } from "./cli-util/get-args";
-import { pollStdIn } from "./cli-util/poll-stdin";
-import { applyCommandToTree } from "./multiline-feed";
-import { CommandType } from "./parse-line/command";
-import { loadStateFrom } from "./state-persistance/load-state-from";
-import { saveStateTo } from "./state-persistance/save-state-to";
-import { initializeTree } from "./tree/tree";
-
+import { getArgs } from './cli-util/get-args';
+import { pollStdIn } from './cli-util/poll-stdin';
+import { applyCommandToTree } from './multiline-feed';
+import { CommandType } from './parse-line/command';
+import { loadStateFrom } from './state-persistance/load-state-from';
+import { saveStateTo } from './state-persistance/save-state-to';
+import { initializeTree } from './tree/tree';
 
 async function start() {
     const args = getArgs();
-    const loadedState = args.loadStateFrom ? await loadStateFrom(args.loadStateFrom) : undefined
+    const loadedState = args.loadStateFrom
+        ? await loadStateFrom(args.loadStateFrom)
+        : undefined;
 
     const tree = await initializeTree(loadedState);
+    console.info(
+        'You can start issuing commands. To exit type EXIT and hit enter.'
+    );
     let exit = false;
     while (!exit) {
         const command = await pollStdIn();
@@ -30,7 +34,7 @@ async function start() {
             }
         } catch (e) {
             if (e instanceof Error) {
-                console.error(e.message)
+                console.error(e.message);
             } else {
                 throw e;
             }
@@ -42,9 +46,7 @@ async function start() {
     }
 }
 
-
-
-start().catch(e => {
+start().catch((e) => {
     console.error(e);
     process.exit(1);
-})
+});
