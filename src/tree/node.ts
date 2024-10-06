@@ -1,11 +1,15 @@
 export class Node {
     private childNodes = new Map<string, Node>()
-    constructor(private name: string, private hidden = false) {
+    constructor(private name: string, private root = false) {
 
     }
 
     public getName() {
         return this.name;
+    }
+
+    public getIsRoot() {
+        return this.root;
     }
 
     public addChild(child: Node) {
@@ -33,6 +37,10 @@ export class Node {
             throw new Error("Child does not exist!")
         }
         return <Node>this.childNodes.get(childName);
+    }
+
+    public getChildren(): Node[] {
+        return [...this.childNodes.values()];
     }
 
 }

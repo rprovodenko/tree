@@ -1,3 +1,4 @@
+import { formatSubtree } from "./format-subtree";
 import {Node} from "./node";
 
 
@@ -49,6 +50,9 @@ export class Tree {
     }
 
     public getNode(pathString: string) {
+        if (pathString === "/") {
+            return this.root
+        }
         const path = parsePath(pathString);
         let currentParent = this.root;
         for (const parent of path) {
@@ -60,6 +64,11 @@ export class Tree {
         }
         return currentParent;
     }
+
+    public list() {
+        return formatSubtree(this.root);
+    }
+    
 }
 
 

@@ -48,13 +48,12 @@ function parseMoveCommand(args: string[]): MoveCommand {
 
 
 function parseListCommand(args: string[]): ListCommand {
-    if (args.length !== 1) {
+    if (args.length !== 0) {
         throw new InvalidListCommandFormatError(`${args.join(" ")}`)
     }
 
     return {
         type: CommandType.LIST,
-        target: args[0]
     }
 }
 
