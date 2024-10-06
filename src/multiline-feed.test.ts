@@ -20,6 +20,23 @@ vegetables
 CREATE vegetables
 CREATE grains
 CREATE fruits/apples
+CREATE fruits/apples/fuji`)
+        expect(tree.list()).toMatchInlineSnapshot(`
+"fruits
+ apples
+  fuji
+vegetables
+grains
+"
+`);
+    })
+
+    it("allows taking commands and feeding into tree - 3", () => {
+        const tree = initializeTree();
+        multilineFeed(tree, `CREATE fruits
+CREATE vegetables
+CREATE grains
+CREATE fruits/apples
 CREATE fruits/apples/fuji
 CREATE grains/squash
 MOVE grains/squash vegetables
@@ -40,7 +57,7 @@ LIST`)
 `);
     })
 
-    it("allows taking commands and feeding into tree - 3", () => {
+    it("allows taking commands and feeding into tree - 4", () => {
         const tree = initializeTree();
         multilineFeed(tree, `CREATE fruits
 CREATE vegetables
