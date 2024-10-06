@@ -1,5 +1,6 @@
 import { formatSubtree } from "./format-subtree";
 import {Node} from "./node";
+import { serlizeSubtree } from "./serialize-subtree";
 
 
 // TODO: remove all the assertions
@@ -88,6 +89,10 @@ export class Tree {
 
     public list() {
         return formatSubtree(this.root);
+    }
+
+    public serialize() {
+        return serlizeSubtree(this.root);
     }
     
 }

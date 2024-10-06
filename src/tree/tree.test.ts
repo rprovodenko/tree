@@ -572,4 +572,63 @@ child1b
 "
 `);
     })
+
+    it("serializes itself - simple", () => {
+        const tree = initializeTree();
+        tree.addNode("child1")
+        expect(tree.serialize()).toMatchInlineSnapshot(`
+[
+  {
+    "name": "child1",
+    "path": "/",
+  },
+]
+`);
+    })
+
+
+    it("serializes itself - complex", () => {
+        const tree = initializeTree();
+        tree.addNode("child1a/child2a/child3a");
+        tree.addNode("child1a/child2a/child3a1");
+        tree.addNode("child1a/child2a/child3a2");
+        tree.addNode("child1a/child2a/child3a2/child4a");
+        tree.addNode("child1b/child2b");
+        expect(tree.serialize()).toMatchInlineSnapshot(`
+[
+  {
+    "name": "child1a",
+    "path": "/",
+  },
+  {
+    "name": "child2a",
+    "path": "/child1a",
+  },
+  {
+    "name": "child3a",
+    "path": "/child1a/child2a",
+  },
+  {
+    "name": "child3a1",
+    "path": "/child1a/child2a",
+  },
+  {
+    "name": "child3a2",
+    "path": "/child1a/child2a",
+  },
+  {
+    "name": "child4a",
+    "path": "/child1a/child2a/child3a2",
+  },
+  {
+    "name": "child1b",
+    "path": "/",
+  },
+  {
+    "name": "child2b",
+    "path": "/child1b",
+  },
+]
+`);
+    })
 })
