@@ -7,7 +7,9 @@ import { loadStateFrom } from './load-state-from';
 describe('saveStateTo', () => {
     let tempDir = '';
     beforeAll(async () => {
-        const randomDirName = `./tmp_${Math.random().toString(36).substring(2, 10)}`;
+        const randomDirName = `./tmp_${Math.random()
+            .toString(36)
+            .substring(2, 10)}`;
         tempDir = join(tmpdir(), randomDirName);
         await mkdir(tempDir);
     });

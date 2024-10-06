@@ -8,6 +8,8 @@ import {
 } from './command';
 import { InvalidCommandTypeError } from './invalid-command-type-error';
 import { InvalidCreateCommandFormatError } from './invalid-create-command-format-error';
+import { InvalidDeleteCommandFormatError } from './invalid-delete-command-format-error';
+import { InvalidExitCommandFormatError } from './invalid-exit-command-format-error';
 import { InvalidListCommandFormatError } from './invalid-list-command-format-error';
 import { InvalidMoveCommandFormatError } from './invalid-move-command-format-error';
 
@@ -66,7 +68,7 @@ function parseListCommand(args: string[]): ListCommand {
 
 function parseDeleteCommand(args: string[]): DeleteCommand {
     if (args.length !== 1) {
-        throw new InvalidListCommandFormatError(`${args.join(' ')}`);
+        throw new InvalidDeleteCommandFormatError(`${args.join(' ')}`);
     }
 
     return {
@@ -77,7 +79,7 @@ function parseDeleteCommand(args: string[]): DeleteCommand {
 
 function parseExitCommand(args: string[]): ExitCommand {
     if (args.length !== 0) {
-        throw new InvalidListCommandFormatError(`${args.join(' ')}`);
+        throw new InvalidExitCommandFormatError(`${args.join(' ')}`);
     }
 
     return {
