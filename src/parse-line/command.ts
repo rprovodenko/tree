@@ -18,7 +18,6 @@ export type MoveCommand = {
 
 export type ListCommand =  {
     type: CommandType.LIST
-    target: string;
 }
 
 export type DeleteCommand = {

@@ -12,17 +12,17 @@ Tree {
     "childNodes": Map {
       "fruits" => Node {
         "childNodes": Map {},
-        "hidden": false,
         "name": "fruits",
+        "root": false,
       },
       "vegetables" => Node {
         "childNodes": Map {},
-        "hidden": false,
         "name": "vegetables",
+        "root": false,
       },
     },
-    "hidden": true,
     "name": "root",
+    "root": true,
   },
 }
 `);
@@ -51,32 +51,32 @@ Tree {
         "childNodes": Map {
           "grains" => Node {
             "childNodes": Map {},
-            "hidden": false,
             "name": "grains",
+            "root": false,
           },
           "fruits" => Node {
             "childNodes": Map {},
-            "hidden": false,
             "name": "fruits",
+            "root": false,
           },
           "vegetables" => Node {
             "childNodes": Map {
               "squash" => Node {
                 "childNodes": Map {},
-                "hidden": false,
                 "name": "squash",
+                "root": false,
               },
             },
-            "hidden": false,
             "name": "vegetables",
+            "root": false,
           },
         },
-        "hidden": false,
         "name": "foods",
+        "root": false,
       },
     },
-    "hidden": true,
     "name": "root",
+    "root": true,
   },
 }
 `);

@@ -43,19 +43,13 @@ describe("parseInputLines", () => {
     })
 
     it("parses LIST - success", () => {
-        expect(parseInputLine("LIST grains/squash")).toEqual({
+        expect(parseInputLine("LIST")).toEqual({
             type: CommandType.LIST,
-            target: "grains/squash"
         })
     })
 
-
-    it("parses LIST - invalid format 1", () => {
-        expect(() => parseInputLine("LIST")).toThrowErrorMatchingInlineSnapshot(`"Invalid LIST command format. Correct format: LIST <target>. Recieved: LIST "`);
-    })
-
     it("parses LIST - invalid format 2", () => {
-        expect(() => parseInputLine("LIST grains/squash two")).toThrowErrorMatchingInlineSnapshot(`"Invalid LIST command format. Correct format: LIST <target>. Recieved: LIST grains/squash two"`);
+        expect(() => parseInputLine("LIST grains/squash")).toThrowErrorMatchingInlineSnapshot(`"Invalid LIST command format. Correct format: LIST. Recieved: LIST grains/squash"`);
     })
 
     it("parses invalid command 1", () => {
