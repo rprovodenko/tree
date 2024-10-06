@@ -26,7 +26,6 @@ npm run start -- --load-state=/path/to/state.json --save-state=/path/to/state.js
 ## TODO (if this was a production situation)
 I have spent 6 hours to complete this task. The aim was to show my general capability as a software engineer. I hope this project fulfills that purpose. Some things are left undone, I list them here.
 
-- Code is not pretty printed
 - For state saving/loading - need to add schema validation of the JSON files
 - Need to refactor logic to do with `/`. Currently internally the root node is signified by `/`, but you can only use `/` when `MOVE`ing to it. Internally there is some extra character logic related and unrelated to this. It would benefit from being refactored. 
     - I'd need to clarify the requirements. *If we can use `/` at the start of all paths, it would help simplify internal logic too.*
@@ -36,6 +35,7 @@ I have spent 6 hours to complete this task. The aim was to show my general capab
 - Standard CLI arguments like `--help`, shorthands, etc.
 - It's not unthinkable that some bugs may be present. For a real life project more thorough manual testing, but as I said, integration testing would be needed.
 - While NodeJS is cross platform, this project has only been tested on MacOS. It is conceivable that some things, especially the ones to do with filesystem, and especially the tests that create temporary directories may not work on other platforms. The chance of that is low, and Linux is most probably going to be fine, but this needs to be noted.
+- Using path mapping to import from some common directory that has the types shared across components (like `state-persistance` and `tree`), in order to avoid using `../` imports. They are very minimal right now, but if this was production - I'd have created e.g. a `common` directory at the root level where I would have stored `SerializedSubtree` type for example and imported it like `@common/serialized-subtree`
 - I was completing this on a machine I don't frequently work on, without my IDE that has spelling check, so there may be some typos.
 - **To sum up: more testing, requirements refinement and some refactoring**
 
