@@ -7,7 +7,11 @@ nvm use 21
 npm i
 npm run test
 npm run build
-npm run start -- --load-state=/path/to/state.json --save-state=/path/to/state.json
+npm run start -- --save-state=/path/to/state.json
+```
+Once you have saved your state you can use:
+```
+npm run start -- --load-state=/path/to/state.json  --save-state=/path/to/state.json
 ```
 
 `--load-state` and `--save-state` are both optional arguments (so you can only save or only load or both or neither). The files for loading and saving can be different. Saving happens during exit (when user issues an `EXIT` command.)
