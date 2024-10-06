@@ -641,8 +641,6 @@ child1b
         tree.addNode("child1b/child2b");
         const serialized = tree.serialize();
 
-        console.log(serialized);
-
         const newTree = initializeTree(serialized);
         expect(newTree.list()).toEqual(tree.list());
         expect(newTree.list()).toMatchInlineSnapshot(`
