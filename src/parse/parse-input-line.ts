@@ -1,5 +1,7 @@
-import { CommandType, CreateCommand, MoveCommand } from "./command";
+import { CommandType, CreateCommand, DeleteCommand, ListCommand, MoveCommand } from "./command";
+import { InvalidCommandTypeError } from "./invalid-command-type-error";
 import { InvalidCreateCommandFormatError } from "./invalid-create-command-format-error";
+import { InvalidListCommandFormatError } from "./invalid-list-command-format-error";
 import { InvalidMoveCommandFormatError } from "./invalid-move-command-format-error";
 
 function matchCommand(commandString: string) {
@@ -15,6 +17,8 @@ function matchCommand(commandString: string) {
     if (commandString === CommandType.MOVE) {
         return CommandType.MOVE
     }
+
+    throw new InvalidCommandTypeError(commandString)
 
 }
 
@@ -42,10 +46,32 @@ function parseMoveCommand(args: string[]): MoveCommand {
     }
 }
 
+
+function parseListCommand(args: string[]): ListCommand {
+    if (args.length !== 1) {
+        throw new InvalidListCommandFormatError(`${args.join(" ")}`)
+    }
+
+    return {
+        type: CommandType.LIST,
+        target: args[0]
+    }
+}
+
+function parseDeleteCommand(args: string[]): DeleteCommand {
+    if (args.length !== 1) {
+        throw new InvalidListCommandFormatError(`${args.join(" ")}`)
+    }
+
+    return {
+        type: CommandType.DELETE,
+        target: args[0]
+    }
+}
+
 export function parseInputLine(inputLine: string) {
 
-    
-    const [commandTypeString, ...args] = inputLine.trim().split(" ");
+    const [commandTypeString, ...args] = inputLine.replace(/\s+/g, ' ').trim().split(" ");
 
     const commandType = matchCommand(commandTypeString);
 
@@ -57,5 +83,13 @@ export function parseInputLine(inputLine: string) {
         return parseMoveCommand(args);
     }
 
+    if (commandType === CommandType.LIST) {
+        return parseListCommand(args);
+    }
 
+    if (commandType === CommandType.DELETE) {
+        return parseDeleteCommand(args);
+    }
+
+    throw new Error(`Internal error. Unknowm command type: ${commandType}`)
 }
