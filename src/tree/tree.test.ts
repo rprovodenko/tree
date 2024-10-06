@@ -3,10 +3,7 @@ import { initializeTree } from './tree';
  * TODO:
  * - extra spaces, foward slashes at edges ?
  * - error cases
- * - moving where the same name exists
- * - move to root
  * - moving error cases
- * - format subtree at root level
  */
 
 describe('tree navigator', () => {
