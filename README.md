@@ -19,7 +19,6 @@ npm run start -- --load-state=/path/to/state.json  --save-state=/path/to/state.j
 ## Notes
 - To exit issue an `EXIT` command without arguments.
     - If `--save-state` is used, the state will be saved after issuing `EXIT`
-- I've changed the error format slightly for consistency and made it more informative.
 - `CREATE` command acts like `mkdir -p` in Unix, i.e. it creates the intermediate directories if they don't exist.
 - `CREATE` is idempotent, i.e. it won't error when trying to create a node that already exists. 
     - It just won't do anything (won't override).
@@ -30,10 +29,11 @@ npm run start -- --load-state=/path/to/state.json  --save-state=/path/to/state.j
 - `MOVE` of a parent to a child is prohibited
 - `MOVE` of a node to a parent that already has a node of same name is prohibited
 - To run multiple commands simply paste the commands into the terminal
+- I've changed the error format slightly for consistency and made it more informative.
 
 
 ## TODO (if this was a production situation)
-I have spent 6 hours to complete this task. The aim was to show my general capability as a software engineer. I hope this project fulfills that purpose. Some things are left undone, I list them here.
+A brief discussion on possible improvements and how I would have approached things in production settings.
 
 - For state saving/loading - need to add schema validation of the JSON files
 - Need to refactor logic to do with `/`. Currently internally the root node is signified by `/`, but you can only use `/` when `MOVE`ing to it. Internally there is some extra character logic related and unrelated to this. It would benefit from being refactored. 
