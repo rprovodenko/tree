@@ -28,13 +28,14 @@ export class Tree {
             }
             const newNode = new Node(nodeName);
             currentNode.addChild(newNode);
+            currentNode = newNode;
         }
     }
 
     public removeNode(pathString: string) {
         const path = parsePath(pathString);
         const nodeToRemove = <string>path.pop();
-        const parent = this.getNode(path.join("/"))
+        const parent = path.length > 0 ? this.getNode(path.join("/")) : this.root;
         return parent.removeChild(nodeToRemove);
     }
 
