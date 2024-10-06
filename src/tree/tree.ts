@@ -19,10 +19,10 @@ function parsePath(path: string): ParsedPath {
 
 // is path1 is a parent of path2
 function isAParent(path1: string, path2: string) {
-    if (path2 === "/") {
+    if (path2 === '/') {
         return false;
     }
-    if (path1 === "/") {
+    if (path1 === '/') {
         return true;
     }
     const parts1 = parsePath(path1);
@@ -38,7 +38,6 @@ function isAParent(path1: string, path2: string) {
     }
     return true;
 }
-
 
 // Do not initialize via constructor
 export class Tree {
@@ -75,7 +74,7 @@ export class Tree {
             return parent.removeChild(nodeToRemove);
         } catch (e) {
             if (e instanceof Error) {
-                throw new Error(`Cannot delete ${pathString}. ${e.message}`);
+                throw new Error(`Cannot delete ${pathString} - ${e.message}`);
             }
             throw e;
         }
@@ -85,7 +84,7 @@ export class Tree {
         try {
             const isFromParentOfTo = isAParent(fromPath, toPath);
             if (isFromParentOfTo) {
-                throw new Error(`Cannot move parent to child.`)
+                throw new Error(`Cannot move parent to child.`);
             }
 
             const newParent = this.getNode(toPath);
@@ -116,9 +115,7 @@ export class Tree {
                 currentParent = currentParent.getChild(parent);
                 continue;
             }
-            throw new Error(
-                `Cannot find: In path ${pathString} <--- "${parent}" does not exist`
-            );
+            throw new Error(`${parent} does not exist`);
         }
         return currentParent;
     }

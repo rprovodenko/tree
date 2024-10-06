@@ -1,9 +1,6 @@
 export class Node {
     private childNodes = new Map<string, Node>();
-    constructor(
-        private name: string,
-        private root = false
-    ) {}
+    constructor(private name: string, private root = false) {}
 
     public getName() {
         return this.name;
@@ -22,7 +19,7 @@ export class Node {
 
     public removeChild(childName: string): Node {
         if (!this.childNodes.has(childName)) {
-            throw new Error('Child does not exist!');
+            throw new Error(`${childName} does not exist`);
         }
         const child = this.childNodes.get(childName);
         this.childNodes.delete(childName);
