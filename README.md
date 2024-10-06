@@ -45,6 +45,7 @@ A brief discussion on possible improvements and how I would have approached thin
 - While NodeJS is cross platform, this project has only been tested on MacOS. It is conceivable that some things, especially the ones to do with filesystem, and especially the tests that create temporary directories may not work on other platforms. The chance of that is low, and Linux is most probably going to be fine, but this needs to be noted.
 - I would add path mapping to import from some common directory that has the types shared across components (like `state-persistance` and `tree`), in order to avoid using `../` imports. They are very minimal right now, but if this was production - I'd have created e.g. a `common` directory at the root level where I would have stored `SerializedSubtree` type for example and imported it like `@common/serialized-subtree`
 - I would refactor tests to use snapshots of `.list()` command as opposed to snapshotting the JavaScript objects - would be easier to read the tests.
+- CI/CD.
 - I was completing this on a machine I don't frequently work on, without my IDE that has spelling check, so there may be some typos.
 - **To sum up: more testing, requirements refinement and some refactoring**
 
