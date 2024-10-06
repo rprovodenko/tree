@@ -53,11 +53,11 @@ describe("parseInputLines", () => {
     })
 
     it("parses invalid command 1", () => {
-        expect(() => parseInputLine("list")).toThrowErrorMatchingInlineSnapshot(`"Unknown command: list. Supported commands: [CREATE, LIST, MOVE, DELETE]"`);
+        expect(() => parseInputLine("list")).toThrowErrorMatchingInlineSnapshot(`"Unknown command: list. Supported commands: [CREATE, LIST, MOVE, DELETE, EXIT]"`);
     })
 
     it("parses invalid command 2", () => {
-        expect(() => parseInputLine("listlist")).toThrowErrorMatchingInlineSnapshot(`"Unknown command: listlist. Supported commands: [CREATE, LIST, MOVE, DELETE]"`);
+        expect(() => parseInputLine("listlist")).toThrowErrorMatchingInlineSnapshot(`"Unknown command: listlist. Supported commands: [CREATE, LIST, MOVE, DELETE, EXIT]"`);
     })
 
     it("ignores extra whitespace", () => {
