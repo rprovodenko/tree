@@ -29,7 +29,6 @@ npm run start -- --load-state=/path/to/state.json  --save-state=/path/to/state.j
 - `MOVE` of a parent to a child is prohibited
 - `MOVE` of a node to a parent that already has a node of same name is prohibited
 - To run multiple commands simply paste the commands into the terminal
-- I've changed the error format slightly for consistency and made it more informative.
 
 
 ## TODO (if this was a production situation)
