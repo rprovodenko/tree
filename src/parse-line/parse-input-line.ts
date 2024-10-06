@@ -17,6 +17,9 @@ function matchCommand(commandString: string) {
     if (commandString === CommandType.MOVE) {
         return CommandType.MOVE
     }
+    if (commandString === CommandType.EXIT) {
+        return CommandType.EXIT
+    }
 
     throw new InvalidCommandTypeError(commandString)
 
