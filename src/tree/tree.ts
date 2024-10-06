@@ -4,7 +4,7 @@ import { Node } from './node';
 import { serlizeSubtree } from './serialize-subtree';
 import { SerializedSubtree } from './types';
 
-// TODO: remove all the assertions
+// TODO: remove all the assertions, refactor typings
 type ParsedPath = [string, ...string[]];
 
 function parsePath(path: string): ParsedPath {
@@ -16,6 +16,29 @@ function parsePath(path: string): ParsedPath {
     }
     return <ParsedPath>splitPath;
 }
+
+// is path1 is a parent of path2
+function isAParent(path1: string, path2: string) {
+    if (path2 === "/") {
+        return false;
+    }
+    if (path1 === "/") {
+        return true;
+    }
+    const parts1 = parsePath(path1);
+    const parts2 = parsePath(path2);
+    if (parts1.length === parts2.length) {
+        return false;
+    }
+    for (let i = 0; i < parts1.length; i++) {
+        if (parts1[i] === parts2[i]) {
+            continue;
+        }
+        return false;
+    }
+    return true;
+}
+
 
 // Do not initialize via constructor
 export class Tree {
@@ -60,12 +83,18 @@ export class Tree {
 
     public moveNode(fromPath: string, toPath: string) {
         try {
+            const isFromParentOfTo = isAParent(fromPath, toPath);
+            if (isFromParentOfTo) {
+                throw new Error(`Cannot move parent to child.`)
+            }
+
             const newParent = this.getNode(toPath);
             if (!newParent) {
                 throw new Error(`nowhere to move...`);
             }
-            const removedNode = this.removeNode(fromPath);
-            newParent.addChild(removedNode);
+            const toBeRemovedNode = this.getNode(fromPath);
+            newParent.addChild(toBeRemovedNode);
+            this.removeNode(fromPath);
         } catch (e) {
             if (e instanceof Error) {
                 throw new Error(

@@ -1,6 +1,6 @@
 # tree
 
-## Setup
+## Setup and running
 
 ```
 nvm use 21
@@ -14,14 +14,19 @@ npm run start -- --load-state=/path/to/state.json --save-state=/path/to/state.js
 
 ## Notes
 - To exit issue an `EXIT` command without arguments.
+    - If `--save-state` is used, the state will be saved after issuing `EXIT`
 - I've changed the error format slightly for consistency and made it more informative.
 - `CREATE` command acts like `mkdir -p` in Unix, i.e. it creates the intermediate directories if they don't exist.
 - `CREATE` is idempotent, i.e. it won't error when trying to create a node that already exists. 
+    - It just won't do anything (won't override).
 - whitespaces inside directory names are not supported, e.g. you cannot do `CREATE "this is a single directory"`
 - to `MOVE` something to root do `MOVE a/b/c /` (this will move `c` to root)
     - generally paths starting with `/` are not allowed, but for this specific `MOVE` to root scenario it is used
+- trailing `/` are disallowed.
 - `MOVE` of a parent to a child is prohibited
+- `MOVE` of a node to a parent that already has a node of same name is prohibited
 - To run multiple commands simply paste the commands into the terminal
+
 
 ## TODO (if this was a production situation)
 I have spent 6 hours to complete this task. The aim was to show my general capability as a software engineer. I hope this project fulfills that purpose. Some things are left undone, I list them here.
@@ -35,7 +40,8 @@ I have spent 6 hours to complete this task. The aim was to show my general capab
 - Standard CLI arguments like `--help`, shorthands, etc.
 - It's not unthinkable that some bugs may be present. For a real life project more thorough manual testing, but as I said, integration testing would be needed.
 - While NodeJS is cross platform, this project has only been tested on MacOS. It is conceivable that some things, especially the ones to do with filesystem, and especially the tests that create temporary directories may not work on other platforms. The chance of that is low, and Linux is most probably going to be fine, but this needs to be noted.
-- Using path mapping to import from some common directory that has the types shared across components (like `state-persistance` and `tree`), in order to avoid using `../` imports. They are very minimal right now, but if this was production - I'd have created e.g. a `common` directory at the root level where I would have stored `SerializedSubtree` type for example and imported it like `@common/serialized-subtree`
+- I would add path mapping to import from some common directory that has the types shared across components (like `state-persistance` and `tree`), in order to avoid using `../` imports. They are very minimal right now, but if this was production - I'd have created e.g. a `common` directory at the root level where I would have stored `SerializedSubtree` type for example and imported it like `@common/serialized-subtree`
+- I would refactor tests to use snapshots of `.list()` command as opposed to snapshotting the JavaScript objects - would be easier to read the tests.
 - I was completing this on a machine I don't frequently work on, without my IDE that has spelling check, so there may be some typos.
 - **To sum up: more testing, requirements refinement and some refactoring**
 

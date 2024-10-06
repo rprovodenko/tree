@@ -1,6 +1,6 @@
 import { getArgs } from './cli-util/get-args';
 import { pollStdIn } from './cli-util/poll-stdin';
-import { applyCommandToTree } from './multiline-feed';
+import { applyCommandToTree } from './apply-command-to-tree';
 import { CommandType } from './parse-line/command';
 import { loadStateFrom } from './state-persistance/load-state-from';
 import { saveStateTo } from './state-persistance/save-state-to';
