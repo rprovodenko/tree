@@ -1,7 +1,17 @@
 import {Node} from "./node";
 
-function parsePath(path: string) {
-    return path.split("/");
+
+// TODO: remove all the assertions
+type ParsedPath = [string, ...string[]];
+
+function parsePath(path: string): ParsedPath {
+    const cleanedPath = path.replace(/\s+/g, ' ').trim();
+    const splitPath = cleanedPath.split("/");
+
+    if (splitPath[0].length === 0) {
+        throw new Error("Invalid empty path!")
+    }
+    return <ParsedPath>splitPath;
 }
 
 // Do not initialize via constructor
@@ -19,27 +29,16 @@ export class Tree {
             const newNode = new Node(nodeName);
             currentNode.addChild(newNode);
         }
-        // parse path
-        // make sure that every one of these exist
     }
 
     public removeNode(pathString: string) {
-        // parse path
-        // find the last element in path
-        // remove it
-
         const path = parsePath(pathString);
-        const nodeToRemove = path.pop();
+        const nodeToRemove = <string>path.pop();
         const parent = this.getNode(path.join("/"))
         return parent.removeChild(nodeToRemove);
     }
 
     public moveNode(fromPath: string, toPath: string) {
-        // parse path
-        // find the last element in fromPath
-        // find the toPath
-        // detach from first, attach to second
-
         const newParent = this.getNode(toPath);
         if (!newParent) {
             throw new Error(`nowhere to move...`)
@@ -52,8 +51,8 @@ export class Tree {
         const path = parsePath(pathString);
         let currentParent = this.root;
         for (const parent of path) {
-            if (currentParent.has(parent)) {
-                currentParent = currentParent.get(parent)
+            if (currentParent.hasChild(parent)) {
+                currentParent = currentParent.getChild(parent)
                 continue;
             }
             throw new Error(`Path does not exist:.....`)
@@ -64,7 +63,5 @@ export class Tree {
 
 
 export function initializeTree() {
-
     return new Tree();
-
 }

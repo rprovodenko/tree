@@ -1,17 +1,30 @@
+import {Node} from "./node";
+
 describe("tree", () => {
-    it("initalizes", () => {
-        // const tree = initializeRootNode();
-        // expect(tree).equals({name: "root", hidden: true, nodes: []})
+    it("should add children", () => {
+        const node = new Node("root", true);
+        expect(node.hasChild("child")).toBe(false);
+        const child = new Node("child")
+        node.addChild(child)
+        expect(node.hasChild("child")).toBe(true);
     })
-    it("can add new node", () => {
-        // const tree = initializeRootNode();
-        // addTreeNode(tree, {name: "one", hidden: false, nodes: []})
-        // expect(tree).toEqual({name: "root", hidden: true, nodes: [{name: "one", hidden: false, nodes: []}]})
+    
+    it("should remove children", () => {
+        const node = new Node("root", true);
+        expect(node.hasChild("child")).toBe(false);
+        const child = new Node("child")
+        node.addChild(child)
+        expect(node.hasChild("child")).toBe(true);
+        node.removeChild("child");
+        expect(node.hasChild("child")).toBe(false);
     })
-    it("can remove node", () => {
-        // const tree = initializeRootNode();
-        // addTreeNode(tree, {name: "one", hidden: false, nodes: []})
-        // expect(removeTreeNode(tree, "one")).toEqual({name: "one", hidden: false, nodes: []})
-        // expect(tree).toEqual({name: "root", hidden: true, nodes: []})
+    
+
+    it("should get child at path", () => {
+        const node = new Node("root", true);
+        const child = new Node("child")
+        node.addChild(child)
+        const nodeThree = node.getChild("child");
+        expect(nodeThree.getName()).toEqual("child");
     })
 })
