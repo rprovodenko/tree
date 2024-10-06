@@ -1,4 +1,4 @@
-import { CommandType, CreateCommand, DeleteCommand, ListCommand, MoveCommand } from "./command";
+import { CommandType, CreateCommand, DeleteCommand, ExitCommand, ListCommand, MoveCommand } from "./command";
 import { InvalidCommandTypeError } from "./invalid-command-type-error";
 import { InvalidCreateCommandFormatError } from "./invalid-create-command-format-error";
 import { InvalidListCommandFormatError } from "./invalid-list-command-format-error";
@@ -16,6 +16,9 @@ function matchCommand(commandString: string) {
     }
     if (commandString === CommandType.MOVE) {
         return CommandType.MOVE
+    }
+    if (commandString === CommandType.EXIT) {
+        return CommandType.EXIT
     }
 
     throw new InvalidCommandTypeError(commandString)
@@ -68,6 +71,17 @@ function parseDeleteCommand(args: string[]): DeleteCommand {
     }
 }
 
+
+function parseExitCommand(args: string[]): ExitCommand {
+    if (args.length !== 0) {
+        throw new InvalidListCommandFormatError(`${args.join(" ")}`)
+    }
+
+    return {
+        type: CommandType.EXIT,
+    }
+}
+
 export function parseInputLine(inputLine: string) {
 
     const [commandTypeString, ...args] = inputLine.replace(/\s+/g, ' ').trim().split(" ");
@@ -88,6 +102,10 @@ export function parseInputLine(inputLine: string) {
 
     if (commandType === CommandType.DELETE) {
         return parseDeleteCommand(args);
+    }
+
+    if (commandType === CommandType.EXIT) {
+        return parseExitCommand(args);
     }
 
     throw new Error(`Internal error. Unknowm command type: ${commandType}`)

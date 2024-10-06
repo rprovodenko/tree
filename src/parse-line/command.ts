@@ -2,7 +2,8 @@ export enum CommandType {
     CREATE = "CREATE",
     LIST = "LIST",
     MOVE = "MOVE",
-    DELETE = "DELETE"
+    DELETE = "DELETE",
+    EXIT = "EXIT"
 }
 
 export type CreateCommand = {
@@ -25,4 +26,9 @@ export type DeleteCommand = {
     target: string;
 }
 
-export type Command = CreateCommand | MoveCommand | ListCommand | DeleteCommand
+
+export type ExitCommand = {
+    type: CommandType.EXIT
+}
+
+export type TreeCommand = CreateCommand | MoveCommand | ListCommand | DeleteCommand
