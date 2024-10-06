@@ -1,8 +1,9 @@
 export class Node {
-    private childNodes = new Map<string, Node>()
-    constructor(private name: string, private root = false) {
-
-    }
+    private childNodes = new Map<string, Node>();
+    constructor(
+        private name: string,
+        private root = false
+    ) {}
 
     public getName() {
         return this.name;
@@ -14,14 +15,14 @@ export class Node {
 
     public addChild(child: Node) {
         if (this.childNodes.has(child.getName())) {
-            throw new Error("Child already exists!")
+            throw new Error('Child already exists!');
         }
         this.childNodes.set(child.getName(), child);
     }
 
     public removeChild(childName: string): Node {
         if (!this.childNodes.has(childName)) {
-            throw new Error("Child does not exist!")
+            throw new Error('Child does not exist!');
         }
         const child = this.childNodes.get(childName);
         this.childNodes.delete(childName);
@@ -34,7 +35,7 @@ export class Node {
 
     public getChild(childName: string): Node {
         if (!this.hasChild(childName)) {
-            throw new Error("Child does not exist!")
+            throw new Error('Child does not exist!');
         }
         return <Node>this.childNodes.get(childName);
     }
@@ -42,6 +43,4 @@ export class Node {
     public getChildren(): Node[] {
         return [...this.childNodes.values()];
     }
-
 }
-

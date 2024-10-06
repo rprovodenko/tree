@@ -1,34 +1,37 @@
 export enum CommandType {
-    CREATE = "CREATE",
-    LIST = "LIST",
-    MOVE = "MOVE",
-    DELETE = "DELETE",
-    EXIT = "EXIT"
+    CREATE = 'CREATE',
+    LIST = 'LIST',
+    MOVE = 'MOVE',
+    DELETE = 'DELETE',
+    EXIT = 'EXIT',
 }
 
 export type CreateCommand = {
-    type: CommandType.CREATE
+    type: CommandType.CREATE;
     target: string;
-}
+};
 
 export type MoveCommand = {
-    type: CommandType.MOVE
+    type: CommandType.MOVE;
     source: string;
     target: string;
-}
+};
 
-export type ListCommand =  {
-    type: CommandType.LIST
-}
+export type ListCommand = {
+    type: CommandType.LIST;
+};
 
 export type DeleteCommand = {
-    type: CommandType.DELETE
+    type: CommandType.DELETE;
     target: string;
-}
-
+};
 
 export type ExitCommand = {
-    type: CommandType.EXIT
-}
+    type: CommandType.EXIT;
+};
 
-export type TreeCommand = CreateCommand | MoveCommand | ListCommand | DeleteCommand
+export type TreeCommand =
+    | CreateCommand
+    | MoveCommand
+    | ListCommand
+    | DeleteCommand;

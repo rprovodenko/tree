@@ -1,4 +1,4 @@
-import { initializeTree } from "./tree";
+import { initializeTree } from './tree';
 /**
  * TODO:
  * - extra spaces, foward slashes at edges ?
@@ -9,10 +9,10 @@ import { initializeTree } from "./tree";
  * - format subtree at root level
  */
 
-describe("tree navigator", () => {
-    it("adds node at path - root level", () => {
+describe('tree navigator', () => {
+    it('adds node at path - root level', () => {
         const tree = initializeTree();
-        tree.addNode("child1")
+        tree.addNode('child1');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -28,12 +28,11 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("adds node at path - a few levels down", () => {
+    it('adds node at path - a few levels down', () => {
         const tree = initializeTree();
-        tree.addNode("child1/child2/child3")
+        tree.addNode('child1/child2/child3');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -61,15 +60,14 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("adds node at path - complex case", () => {
+    it('adds node at path - complex case', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2/child3")
-        tree.addNode("child1b/child2/child3")
-        tree.addNode("child1c/child2/child3")
-        tree.addNode("child1d/child2/child3")
+        tree.addNode('child1a/child2/child3');
+        tree.addNode('child1b/child2/child3');
+        tree.addNode('child1c/child2/child3');
+        tree.addNode('child1d/child2/child3');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -148,13 +146,12 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("removes node at path - nesting", () => {
+    it('removes node at path - nesting', () => {
         const tree = initializeTree();
-        tree.addNode("child1/child2/child3")
-        tree.removeNode("child1/child2")
+        tree.addNode('child1/child2/child3');
+        tree.removeNode('child1/child2');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -170,13 +167,12 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("removes node at path - root", () => {
+    it('removes node at path - root', () => {
         const tree = initializeTree();
-        tree.addNode("child1/child2/child3")
-        tree.removeNode("child1")
+        tree.addNode('child1/child2/child3');
+        tree.removeNode('child1');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -186,13 +182,12 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("removes node at path - last element in nesting", () => {
+    it('removes node at path - last element in nesting', () => {
         const tree = initializeTree();
-        tree.addNode("child1/child2/child3")
-        tree.removeNode("child1/child2/child3")
+        tree.addNode('child1/child2/child3');
+        tree.removeNode('child1/child2/child3');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -214,16 +209,15 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("removes node at path - complex case", () => {
+    it('removes node at path - complex case', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2/child3")
-        tree.addNode("child1b/child2/child3")
-        tree.addNode("child1c/child2/child3")
-        tree.removeNode("child1a/child2")
-        tree.removeNode("child1c/child2/child3")
+        tree.addNode('child1a/child2/child3');
+        tree.addNode('child1b/child2/child3');
+        tree.addNode('child1c/child2/child3');
+        tree.removeNode('child1a/child2');
+        tree.removeNode('child1c/child2/child3');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -267,14 +261,14 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-    it("finds node at path", () => {
+    it('finds node at path', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2/child3")
-        tree.addNode("child1b/child2/child3")
-        tree.addNode("child1c/child2/child3")
-        expect(tree.getNode("child1b/child2")).toMatchInlineSnapshot(`
+        tree.addNode('child1a/child2/child3');
+        tree.addNode('child1b/child2/child3');
+        tree.addNode('child1c/child2/child3');
+        expect(tree.getNode('child1b/child2')).toMatchInlineSnapshot(`
 Node {
   "childNodes": Map {
     "child3" => Node {
@@ -287,7 +281,7 @@ Node {
   "root": false,
 }
 `);
-        expect(tree.getNode("child1c")).toMatchInlineSnapshot(`
+        expect(tree.getNode('child1c')).toMatchInlineSnapshot(`
 Node {
   "childNodes": Map {
     "child2" => Node {
@@ -306,14 +300,13 @@ Node {
   "root": false,
 }
 `);
-    })
+    });
 
-
-    it("finds node at root", () => {
+    it('finds node at root', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2/child3")
-        tree.addNode("child1b/child2/child3")
-        expect(tree.getNode("/")).toMatchInlineSnapshot(`
+        tree.addNode('child1a/child2/child3');
+        tree.addNode('child1b/child2/child3');
+        expect(tree.getNode('/')).toMatchInlineSnapshot(`
 Node {
   "childNodes": Map {
     "child1a" => Node {
@@ -355,14 +348,13 @@ Node {
   "root": true,
 }
 `);
-    })
+    });
 
-
-    it("moves node at path1 to path2", () => {
+    it('moves node at path1 to path2', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2a/child3")
-        tree.addNode("child1b/child2b/child3")
-        tree.moveNode("child1b/child2b/child3", "child1a/child2a/child3")
+        tree.addNode('child1a/child2a/child3');
+        tree.addNode('child1b/child2b/child3');
+        tree.moveNode('child1b/child2b/child3', 'child1a/child2a/child3');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -407,14 +399,13 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("moves nested dirs", () => {
+    it('moves nested dirs', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2a/child3")
-        tree.addNode("child1b/child2b/child3")
-        tree.moveNode("child1b/child2b", "child1a/child2a")
+        tree.addNode('child1a/child2a/child3');
+        tree.addNode('child1b/child2b/child3');
+        tree.moveNode('child1b/child2b', 'child1a/child2a');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -458,14 +449,13 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("moves nested dirs - 2", () => {
+    it('moves nested dirs - 2', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2a/child3")
-        tree.addNode("child1b/child2b/child3")
-        tree.moveNode("child1b", "child1a/child2a/child3")
+        tree.addNode('child1a/child2a/child3');
+        tree.addNode('child1b/child2b/child3');
+        tree.moveNode('child1b', 'child1a/child2a/child3');
         expect(tree).toMatchInlineSnapshot(`
 Tree {
   "root": Node {
@@ -511,55 +501,52 @@ Tree {
   },
 }
 `);
-    })
+    });
 
-
-    it("should list - empty root", () => {
+    it('should list - empty root', () => {
         const tree = initializeTree();
         expect(tree.list()).toMatchInlineSnapshot(`
 "
 "
 `);
-    })
+    });
 
-
-    it("should list - one element", () => {
+    it('should list - one element', () => {
         const tree = initializeTree();
-        tree.addNode("child1")
+        tree.addNode('child1');
         expect(tree.list()).toMatchInlineSnapshot(`
 "child1
 "
 `);
-    })
+    });
 
-    it("should list - two elements", () => {
+    it('should list - two elements', () => {
         const tree = initializeTree();
-        tree.addNode("child1")
-        tree.addNode("child2")
+        tree.addNode('child1');
+        tree.addNode('child2');
         expect(tree.list()).toMatchInlineSnapshot(`
 "child1
 child2
 "
 `);
-    })
-    it("should list - nested", () => {
+    });
+    it('should list - nested', () => {
         const tree = initializeTree();
-        tree.addNode("child1/child2")
+        tree.addNode('child1/child2');
         expect(tree.list()).toMatchInlineSnapshot(`
 "child1
  child2
 "
 `);
-    })
+    });
 
-    
-    it("should list - complex", () => {
+    it('should list - complex', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2a/child3a");
-        tree.addNode("child1a/child2a/child3a1");
-        tree.addNode("child1a/child2a/child3a2");
-        tree.addNode("child1a/child2a/child3a2/child4a");
-        tree.addNode("child1b/child2b");
+        tree.addNode('child1a/child2a/child3a');
+        tree.addNode('child1a/child2a/child3a1');
+        tree.addNode('child1a/child2a/child3a2');
+        tree.addNode('child1a/child2a/child3a2/child4a');
+        tree.addNode('child1b/child2b');
         expect(tree.list()).toMatchInlineSnapshot(`
 "child1a
  child2a
@@ -571,11 +558,11 @@ child1b
  child2b
 "
 `);
-    })
+    });
 
-    it("serializes itself - simple", () => {
+    it('serializes itself - simple', () => {
         const tree = initializeTree();
-        tree.addNode("child1")
+        tree.addNode('child1');
         expect(tree.serialize()).toMatchInlineSnapshot(`
 [
   {
@@ -584,16 +571,15 @@ child1b
   },
 ]
 `);
-    })
+    });
 
-
-    it("serializes itself - complex", () => {
+    it('serializes itself - complex', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2a/child3a");
-        tree.addNode("child1a/child2a/child3a1");
-        tree.addNode("child1a/child2a/child3a2");
-        tree.addNode("child1a/child2a/child3a2/child4a");
-        tree.addNode("child1b/child2b");
+        tree.addNode('child1a/child2a/child3a');
+        tree.addNode('child1a/child2a/child3a1');
+        tree.addNode('child1a/child2a/child3a2');
+        tree.addNode('child1a/child2a/child3a2/child4a');
+        tree.addNode('child1b/child2b');
         expect(tree.serialize()).toMatchInlineSnapshot(`
 [
   {
@@ -630,15 +616,15 @@ child1b
   },
 ]
 `);
-    })
+    });
 
-    it("deserializes itself", () => {
+    it('deserializes itself', () => {
         const tree = initializeTree();
-        tree.addNode("child1a/child2a/child3a");
-        tree.addNode("child1a/child2a/child3a1");
-        tree.addNode("child1a/child2a/child3a2");
-        tree.addNode("child1a/child2a/child3a2/child4a");
-        tree.addNode("child1b/child2b");
+        tree.addNode('child1a/child2a/child3a');
+        tree.addNode('child1a/child2a/child3a1');
+        tree.addNode('child1a/child2a/child3a2');
+        tree.addNode('child1a/child2a/child3a2/child4a');
+        tree.addNode('child1b/child2b');
         const serialized = tree.serialize();
 
         const newTree = initializeTree(serialized);
@@ -654,6 +640,5 @@ child1b
  child2b
 "
 `);
-
-    })
-})
+    });
+});
