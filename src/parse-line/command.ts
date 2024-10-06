@@ -26,4 +26,4 @@ export type DeleteCommand = {
     target: string;
 }
 
-export type Commands = CreateCommand | MoveCommand | ListCommand | DeleteCommand
+export type Command = CreateCommand | MoveCommand | ListCommand | DeleteCommand
