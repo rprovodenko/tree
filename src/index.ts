@@ -23,7 +23,7 @@ async function readFromStdin(): Promise<string> {
 
 async function start() {
     const args = getArgs();
-    const loadedState = args.loadStateFrom ? loadStateFrom(args.loadStateFrom) : undefined
+    const loadedState = args.loadStateFrom ? await loadStateFrom(args.loadStateFrom) : undefined
 
     const tree = await initializeTree(loadedState);
     let exit = false;
@@ -51,8 +51,8 @@ async function start() {
         }
     }
     if (args.saveStateTo) {
-        const currentState = tree.serializeState();
-        await saveStateTo(currentState);
+        const currentState = tree.serialize();
+        await saveStateTo(currentState, args.saveStateTo);
     }
 }
 

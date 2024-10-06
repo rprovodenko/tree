@@ -1,6 +1,8 @@
+import { deserializeSubtree } from "./deserialize-subtree";
 import { formatSubtree } from "./format-subtree";
 import {Node} from "./node";
 import { serlizeSubtree } from "./serialize-subtree";
+import { SerializedSubtree } from "./types";
 
 
 // TODO: remove all the assertions
@@ -34,6 +36,7 @@ export class Tree {
                 currentNode = newNode;
             }
         } catch (e) {
+            console.log(pathString)
             if (e instanceof Error) {
                 throw new Error(`Cannot add. ${e.message}`)
             }
@@ -98,6 +101,11 @@ export class Tree {
 }
 
 
-export function initializeTree() {
-    return new Tree();
+export function initializeTree(serializedSubtree?: SerializedSubtree) {
+    const tree = new Tree();
+    if (serializedSubtree) {
+        deserializeSubtree(serializedSubtree, tree);
+    }
+    return tree;
+
 }

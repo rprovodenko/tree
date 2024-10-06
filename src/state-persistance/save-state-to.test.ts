@@ -14,8 +14,12 @@ describe("saveStateTo", () => {
 
     it("save state in given location", async () => {
         const location = join(tempDir, "./test-state.json");
-        await saveStateTo({myDummyState: true}, location)
+        await saveStateTo([
+            {
+              "name": "child1a",
+              "path": "/",
+            }], location)
         const readState = await loadStateFrom(location)
-        expect(readState).toEqual({myDummyState: true})
+        expect(readState).toEqual([{"name": "child1a", "path": "/"}])
     })
 })

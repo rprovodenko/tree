@@ -631,4 +631,31 @@ child1b
 ]
 `);
     })
+
+    it("deserializes itself", () => {
+        const tree = initializeTree();
+        tree.addNode("child1a/child2a/child3a");
+        tree.addNode("child1a/child2a/child3a1");
+        tree.addNode("child1a/child2a/child3a2");
+        tree.addNode("child1a/child2a/child3a2/child4a");
+        tree.addNode("child1b/child2b");
+        const serialized = tree.serialize();
+
+        console.log(serialized);
+
+        const newTree = initializeTree(serialized);
+        expect(newTree.list()).toEqual(tree.list());
+        expect(newTree.list()).toMatchInlineSnapshot(`
+"child1a
+ child2a
+  child3a
+  child3a1
+  child3a2
+   child4a
+child1b
+ child2b
+"
+`);
+
+    })
 })

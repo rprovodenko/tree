@@ -1,6 +1,7 @@
 import {Node} from "./node";
 /**
  * NOTE: for now assume always root
+ * TODO: cleanup the root (/) logic
  */
 export function serlizeSubtree(node: Node) {
     const nodes = node.getChildren().map(node => ({node, path: "/"}));
