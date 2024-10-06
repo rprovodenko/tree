@@ -22,4 +22,12 @@ describe("parseInputLines", () => {
         })
     })
 
+
+    it("parses MOVE - invalid format 1", () => {
+        expect(() => parseInputLine("MOVE grains/squash")).toThrowErrorMatchingInlineSnapshot(`"Invalid MOVE command format. Correct format: MOVE <source> <target>. Recieved: MOVE grains/squash"`);
+    })
+
+    it("parses MOVE - invalid format 2", () => {
+        expect(() => parseInputLine("MOVE grains/squash and here")).toThrowErrorMatchingInlineSnapshot(`"Invalid MOVE command format. Correct format: MOVE <source> <target>. Recieved: MOVE grains/squash and here"`);
+    })
 })
